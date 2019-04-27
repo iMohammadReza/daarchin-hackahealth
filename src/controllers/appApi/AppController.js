@@ -92,6 +92,10 @@ module.exports = new class AppController extends Controller {
       res.json({success: false})
   }
 
+  profile = () => {
+    
+  }
+
   ask = (req, res) => {
       req.checkBody('id' , '').notEmpty();
       req.checkBody('value' , '').notEmpty();
