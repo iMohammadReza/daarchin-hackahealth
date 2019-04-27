@@ -14,7 +14,7 @@
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
     "dotenv": "^6.2.0",
-    "es6-promise": "^4.2.5",
+    "es6-promise": "^4.2.6",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
     "helmet": "^3.15.1",
@@ -23,7 +23,8 @@
     "moment-jalaali": "^0.8.3",
     "mongoose": "^5.4.10",
     "mongoose-timestamp": "^0.6.0",
-    "otpauth": "^3.2.2"
+    "otpauth": "^3.2.2",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

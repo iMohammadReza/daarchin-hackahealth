@@ -1,7 +1,8 @@
 const Controller = require('../Controller')
 const OTPAuth = require('otpauth');
-var Kavenegar = require('kavenegar');
 const jwt = require('jsonwebtoken')
+require('es6-promise').polyfill();
+var request = require('request');
 
 module.exports = new class AppController extends Controller {
   phone = (req, res) => {
@@ -30,17 +31,10 @@ module.exports = new class AppController extends Controller {
     });
     
     let token = totp.generate();
-    var api = Kavenegar.KavenegarApi({
-        apikey: process.env.KAVENEGAR_API
-    });
-
-    api.Send({
-      message: "کد تایید شما" + token,
-      sender: "10004346",
-      receptor: req.body.phone
-    }, function(response, status) {
-        console.log(response, status)
-        res.json({success: true})
+    request("https://api.sabanovin.com/v1/"+process.env.SMS_API+"/sms/send.json?gateway=1000081290&to="+req.body.phone+"&text="+"Hackathon verification code: " + token, function (error, response, body) {
+      console.log('error:', error); // Print the error if one occurred
+      console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+      console.log('body:', body); // Print the HTML for the Google homepage.
     });
   }
 
