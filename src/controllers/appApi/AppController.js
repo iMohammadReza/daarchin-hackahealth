@@ -195,13 +195,6 @@ module.exports = new class AppController extends Controller {
   }
 
   home = async (req, res) => {
-    req.checkBody('token' , '').notEmpty();
-
-    this.escapeAndTrim(req , 'token');
-
-    if(this.showValidationErrors(req, res))
-        return;
-        
     this.model.User.findById(req.user_id, (err, user) => {
       if (err)
         res.json({success: false, error: err})
@@ -222,6 +215,24 @@ module.exports = new class AppController extends Controller {
   }
 
   commit = (req, res) => {
+    req.checkBody('data' , '').notEmpty();
+    this.escapeAndTrim(req , 'data');
+    if(this.showValidationErrors(req, res))
+        return;
+        
+    this.model.Contestant.insertMany(commits)
+    .then(() => res.json({success: true}))
+    .catch((err) => res.json({success : false, error: err}));
+
+    // let newCommit = new this.model.Commit();
+    // newCommit[req.body.type]=req.body.commit_id
+    // newCommit.user=req.user_id
+    // newCommit.value = req.body.value
+    // newCommit.save(err => {
+    //   if(err)
+    //     res.json({success: false, err: error})
+    //   res.json({success: true})
+    // })
 
   }
 }
