@@ -92,8 +92,36 @@ module.exports = new class AppController extends Controller {
       res.json({success: false})
   }
 
-  profile = () => {
+  profile = (req, res) => {
+    req.checkBody('name', '').notEmpty();
+    req.checkBody('phone2', '').notEmpty();
+    req.checkBody('sex', '').notEmpty();
+    req.checkBody('age', '').notEmpty();
+    req.checkBody('periodDay', '').notEmpty();
 
+    this.escapeAndTrim(req , 'name phone2 sex age periodDay');
+
+    if(this.showValidationErrors(req, res))
+        return;
+
+    let {name, phone2, sex, age, periodDay} = req.body;
+
+    this.model.User.findByIdAndUpdate(req.user_id, {name, phone2, sex, age, periodDay} , async (err , user) => {
+      if(err) throw err;
+
+      if(user == null) {
+        return res.json({data: "user not found!", success: false});
+      }
+        
+      res.json({
+        data : {
+          title : 'Do you have cancer?',
+          options : [{ text: 'First Option', qid: 1 },
+                     { text: 'Second Option', qid: 2 }],
+          fvalue : 0
+        },
+        success : true})
+    })
   }
 
   ask = (req, res) => {

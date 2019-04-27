@@ -8,8 +8,8 @@ const UserSchema = new Schema({
     phone2 : { type: String, default : ""},
     score : { type: Number, default: 0},
     game : { type: Object, default: []},
-    cencer : {type: Boolean, default: false},
     tag : { type: Number, default: -1},
+    cancer : {type: Boolean, default: false},
     periodDay : { type: Number, default: -1},
     age : { type: Number, default: -1},
     sex : { type: Number, default: 0} //0: undefined, 1:female, 2:male
