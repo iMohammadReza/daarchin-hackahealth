@@ -12,7 +12,7 @@ module.exports = (req , res , next) =>  {
                 })
             }
             console.log(decode)
-            req.user_id = decode
+            req.user_id = decode.user_id
             next();
         })
     }

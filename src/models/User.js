@@ -9,6 +9,7 @@ const UserSchema = new Schema({
     score : { type: Number, default: 0},
     game : { type: Object, default: []},
     cencer : {type: Boolean, default: false},
+    tag : { type: Number, default: -1},
     periodDay : { type: Number, default: -1},
     age : { type: Number, default: -1},
     sex : { type: Number, default: 0} //0: undefined, 1:female, 2:male

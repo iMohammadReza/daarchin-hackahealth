@@ -93,7 +93,7 @@ module.exports = new class AppController extends Controller {
   }
 
   profile = () => {
-    
+
   }
 
   ask = (req, res) => {
@@ -105,23 +105,58 @@ module.exports = new class AppController extends Controller {
 
       if(this.showValidationErrors(req, res))
           return;
+      let {id, value, fvalue} = req.body
+      switch (id) {
+        case 1:
+          switch (value) {
+            case 1:
+              fvalue+=10
+              res.json({})
+              break;
+            case 2:
+              fvalue-=20
+              res.json({})
+              break;
+            default:
+              break;
+          }
+          break;
+        case 2:
+          
+          break;
+        case 3:
+          
+          break;
+        case 4:
+          
+          break;
+        case 5:
+          
+          break;
+        case 6:
+          
+          break;
+    
+        default:
+          break;
+      }
 
   }
 
   home = async (req, res) => {
     req.checkBody('token' , '').notEmpty();
-
-    
-
-
+    console.log(req.user_id)
     this.model.User.findById(req.user_id, (err, user) => {
       if (err)
-
-      this.model.tips.find({tag: {$lte: user.tag}, sex: user.sex}, (err, tips) => {
-        if (err)
+        res.json({success: false, error: err})
+      console.log(user)
+      this.model.Tip.find({tag: {$lte: user.tag}, sex: user.sex}, (erro, tips) => {
+        if (erro)
+          res.json({success: false, p:2, error: erro})
   
-        this.model.Action.find({tag: {$lte: user.tag}, sex: user.sex}, (err, actions) => {
-          if (err)
+        this.model.Action.find({tag: {$lte: user.tag}, sex: user.sex}, (error, actions) => {
+          if (error)
+            res.json({success: false, p:3, error: error})
           //res+="how do you fill"
           res.json({success: true, user: {name: user.name, tag: user.tag, sex: user.sex, cancer: user.cancer}, tips, actions})
         })
