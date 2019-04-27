@@ -106,8 +106,10 @@ module.exports = new class AppController extends Controller {
 
     let {name, phone2, sex, age, periodDay} = req.body;
 
-    this.model.User.findByIdAndUpdate(req.user_id, {name, phone2, sex, age, periodDay} , async (err , user) => {
+    this.model.User.findOneAndUpdate({_id: req.user_id}, {name, phone2, sex, age, periodDay} , async (err , user) => {
       if(err) throw err;
+
+      console.log(user, req.user_id)
 
       if(user == null) {
         return res.json({data: "user not found!", success: false});
@@ -115,6 +117,7 @@ module.exports = new class AppController extends Controller {
         
       res.json({
         data : {
+          id: 1,
           title : 'Do you have cancer?',
           options : [{ text: 'First Option', qid: 1 },
                      { text: 'Second Option', qid: 2 }],
@@ -134,16 +137,35 @@ module.exports = new class AppController extends Controller {
       if(this.showValidationErrors(req, res))
           return;
       let {id, value, fvalue} = req.body
+      id= parseInt(id)
+      value= parseInt(value)
+      fvalue= parseInt(fvalue)
       switch (id) {
         case 1:
           switch (value) {
             case 1:
               fvalue+=10
-              res.json({})
+              res.json({
+                data : {
+                  id: 2,
+                  title : 'Q3',
+                  options : [{ text: 'First Option', qid: 1 },
+                             { text: 'Second Option', qid: 2 }],
+                  fvalue
+                },
+                success : true})
               break;
             case 2:
               fvalue-=20
-              res.json({})
+              res.json({
+                data : {
+                  id:3,
+                  title : 'Q2?',
+                  options : [{ text: 'First Option', qid: 1 },
+                             { text: 'Second Option', qid: 2 }],
+                  fvalue
+                },
+                success : true})
               break;
             default:
               break;
@@ -166,6 +188,7 @@ module.exports = new class AppController extends Controller {
           break;
     
         default:
+          res.json({success: false, error: "out of range"})
           break;
       }
 
@@ -173,7 +196,12 @@ module.exports = new class AppController extends Controller {
 
   home = async (req, res) => {
     req.checkBody('token' , '').notEmpty();
-    console.log(req.user_id)
+
+    this.escapeAndTrim(req , 'token');
+
+    if(this.showValidationErrors(req, res))
+        return;
+        
     this.model.User.findById(req.user_id, (err, user) => {
       if (err)
         res.json({success: false, error: err})
@@ -190,21 +218,10 @@ module.exports = new class AppController extends Controller {
         })
 
       })
-
-
     })
-
-    
-
-    
-
-
-    this.escapeAndTrim(req , 'token');
-
-    if(this.showValidationErrors(req, res))
-        return;
   }
 
   commit = (req, res) => {
+
   }
 }

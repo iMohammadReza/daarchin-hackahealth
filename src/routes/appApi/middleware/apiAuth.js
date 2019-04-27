@@ -11,7 +11,6 @@ module.exports = (req , res , next) =>  {
                     error : 'Failed to authenticate token.'
                 })
             }
-            console.log(decode)
             req.user_id = decode.user_id
             next();
         })
