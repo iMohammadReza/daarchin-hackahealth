@@ -107,6 +107,31 @@ module.exports = new class AppController extends Controller {
   home = async (req, res) => {
     req.checkBody('token' , '').notEmpty();
 
+    
+
+
+    this.model.User.findById(req.user_id, (err, user) => {
+      if (err)
+
+      this.model.tips.find({tag: {$lte: user.tag}, sex: user.sex}, (err, tips) => {
+        if (err)
+  
+        this.model.Action.find({tag: {$lte: user.tag}, sex: user.sex}, (err, actions) => {
+          if (err)
+          //res+="how do you fill"
+          res.json({success: true, user: {name: user.name, tag: user.tag, sex: user.sex, cancer: user.cancer}, tips, actions})
+        })
+
+      })
+
+
+    })
+
+    
+
+    
+
+
     this.escapeAndTrim(req , 'token');
 
     if(this.showValidationErrors(req, res))
