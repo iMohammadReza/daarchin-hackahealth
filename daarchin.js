@@ -23,11 +23,10 @@ app.use(compression())
 
 //Routes
 const appApiRouter = require('./src/routes/appApi')
-// const adminApiRouter = require('./src/routes/adminApi')
+const adminApiRouter = require('./src/routes/adminApi')
 
 app.use('/api/v1/appApi' , appApiRouter)
-// app.use('/api/adminApi/', adminApiRouter)
-app.use('/', (req, res) => res.json("Hachahealth 2019, Hello world."))
+app.use('', adminApiRouter)
 
 app.listen(config.port , () => {
     console.log(`Server running at Port ${config.port}, stores at ${DB}`)
