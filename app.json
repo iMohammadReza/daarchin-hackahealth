@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "daarchin",
+      "script": "npm",
+      "args": "start"
+    }
+  ]
+}
