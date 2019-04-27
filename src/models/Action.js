@@ -7,7 +7,7 @@ const ActionSchema = new Schema({
     type : { type : String, required : true}, //textInput, booleanInput, selfExamination, weight
     point : { type: Number, required : true},
     qid: { type: String},
-    cencer: {type: Boolean},
+    cancer: {type: Boolean},
     sex : { type: Number}, //0: both, 1:female, 2:male
     tag : { type: Number}
 })
