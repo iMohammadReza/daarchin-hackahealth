@@ -1,13 +1,11 @@
-const Appointment = require(`${config.path.model}/Appointment`)
-const City = require(`${config.path.model}/City`)
-const Portal = require(`${config.path.model}/Portal`)
-const Rate = require(`${config.path.model}/Rate`)
-const Tag = require(`${config.path.model}/Tag`)
+const Action = require(`${config.path.model}/Action`)
+const Commit = require(`${config.path.model}/Commit`)
+const Tip = require(`${config.path.model}/Tip`)
 const User = require(`${config.path.model}/User`)
 
 module.exports = class Controller {
     constructor() {
-        this.model = { Appointment, City, Portal, Rate, Tag, User }
+        this.model = { Commit, Action, Tip, User }
     }
 
     showValidationErrors(req , res , callback) {

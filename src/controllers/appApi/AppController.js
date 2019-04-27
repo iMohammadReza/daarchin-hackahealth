@@ -1,5 +1,7 @@
 const Controller = require('../Controller')
-import path from 'path'
+const OTPAuth = require('otpauth');
+var Kavenegar = require('kavenegar');
+const jwt = require('jsonwebtoken')
 
 module.exports = new class AppController extends Controller {
   phone = (req, res) => {

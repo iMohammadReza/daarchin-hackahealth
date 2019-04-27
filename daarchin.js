@@ -8,9 +8,9 @@ var compression = require('compression')
 const expressValidator = require('express-validator')
 
 // Connect to DB
-var dev_mongo = 'daarchin-test'
+var dev_mongo = 'mongodb://127.0.0.1:27017/daarchin-test'
 var DB = process.env.MONGO || dev_mongo;
-mongoose.connect('mongodb://127.0.0.1:27017/'+DB, {useNewUrlParser: true})
+mongoose.connect(DB, {useNewUrlParser: true, authSource: 'admin'})
 mongoose.Promise = global.Promise;
 
 //Config express
