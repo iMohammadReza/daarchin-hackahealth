@@ -14,5 +14,6 @@ router.post('/profile', apiAuth , AppController.profile.bind(AppController))
 router.post('/ask' , apiAuth , AppController.ask.bind(AppController))
 router.post('/home', apiAuth , AppController.home.bind(AppController))
 router.post('/commit' , apiAuth , AppController.commit.bind(AppController))
+router.put('/game' , apiAuth , AppController.game.bind(AppController))
 
 module.exports = router
