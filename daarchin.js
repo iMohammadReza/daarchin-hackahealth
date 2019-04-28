@@ -15,6 +15,7 @@ mongoose.Promise = global.Promise;
 
 //Config express
 global.config = require('./src/config')
+app.set('view engine', 'pug')
 app.use(bodyParser.urlencoded({ extended : false }))
 app.use(bodyParser.json({ type : 'application/json' }))
 app.use(expressValidator())

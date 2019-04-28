@@ -23,6 +23,7 @@
     "mongoose": "^5.4.10",
     "mongoose-timestamp": "^0.6.0",
     "otpauth": "^3.2.2",
+    "pug": "^2.0.3",
     "request": "^2.88.0"
   },
   "devDependencies": {

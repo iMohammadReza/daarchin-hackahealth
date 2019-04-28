@@ -5,11 +5,156 @@ html(lang="en")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible" content="ie=edge")
     title HACKAHEALTH 2019
-    link(rel="stylesheet" href="css/animate.css")
-    link(rel="stylesheet" href="style.css")
+    link(rel="stylesheet" href="css/animate.css" type="text/css")
+    link(rel="stylesheet" href="style.css" type="text/css")
     style.
       .wow:first-child {
       visibility: hidden;
+      }
+      * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a, a:visited, a:hover {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      body {
+        font-family: IRANSans,sans-serif,tahoma;
+        direction: rtl;
+        margin: 0;
+        padding: 0;
+        background: #fefefe;
+        /* background-image: url(images/photo_2019-03-31_00-43-23.jpg);
+        background-size: cover;
+        background-repeat: no-repeat; */
+        background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+      }
+      .container{
+        direction: rtl;
+      }
+
+      .navbar-default {
+        background-color: rgba(0,0,0,0);
+        border-color: rgba(0,0,0,0);
+      }
+      .navbar-nav{
+        padding: 5px 15px;
+      }
+      @media(min-width:768px){
+        .navbar .navbar-nav {
+          width: 100%;
+          text-align: center;
+        }
+        .navbar-nav>li{
+          float: none;
+          display: inline-block;
+        }
+      }
+      .logotop{
+        text-align: center;
+        margin: auto;
+        max-width: 120px;
+        margin-bottom: 10px;
+      }
+      .border-boxi{
+        box-shadow: 1px 1px 20px #5b5b5b;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.6);
+        padding: 30px 0px;
+      }
+      .backsvg{
+        position: absolute;
+        max-height: 460px;
+      }
+      .nav-page {
+        background-color: rgb(0, 0, 0);
+        border-color: rgba(0,0,0,0);
+        margin: 0px;
+      }
+      .navbar-default .navbar-nav>li>a{
+        transition: all 0.4s;
+      }
+      .navbar-default .navbar-nav>li>a:hover{
+        color:rgb(224, 224, 224);
+        border-bottom: 1px solid rgb(115, 154, 185);
+      }
+      .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+        color: #fff;
+        background-color: rgba(0,0,0,0);
+        border-bottom: 1px solid rgb(109, 109, 109);
+      }
+      .bg-home{
+        display: none;
+        width: 100%;
+          position: absolute;
+          filter: blur(5px);
+          max-height: 100%;
+          height: auto;
+      }
+      .navbar-default .navbar-nav>li>a {
+        color: #fff;
+      }
+      .login-box{
+        text-align: center;
+      }
+      .login-box input{
+        background: rgba(0,0,0,.4);
+          color: #fff;
+          border: 1px solid rgba(130, 130, 130, 0.14);
+          padding: 15px;
+          width: 280px;
+          border-radius: 30px;
+          margin: 13px;
+      }
+      .login-box input:-ms-input-placeholder{
+        color: #fefefe;
+      }
+      .login-box input::-webkit-input-placeholder{
+        color: #fefefe;
+      }
+      .login-box .login-box-sub{
+        background: #fc636b;
+          width: 280px;
+          padding: 13px;
+          border: none;
+          border-radius: 30px;
+          margin-top: 10px;
+          color: #fff;
+          font-weight: 500;
+      }
+      footer{
+        color: rgb(0, 0, 0);
+        position: relative;
+        text-align: center;
+        margin: 60px 0px;
+      }
+      .nav>li {
+        text-align: center;
+      }
+      .box-text{
+        background: #fefefe;
+        color: #000000;
+        line-height: 2.4;
+      }
+      .box-text img{
+        max-width: 100%;
+      }
+      .search-form{
+        text-align: center;
+      }
+      .search-form input{
+        background: rgb(239, 239, 239);
+        border: none;
+        padding: 3px 15px;
+      }
+      .search-form button{
+        border: none;
+        background: #e1d6d6;
       }
   body
     header#header-index.animated
@@ -20,18 +165,34 @@ html(lang="en")
               li.active
                 a(href="#") صفحه اصلی
 
-    main
-      .container.border-boxi
-        img.backsvg(src="images/und.svg")
-        .col-md-12
-          img.img-responsive.logotop(src="images/Awareness_Ribbons.png")
-          form.login-box(action="" method="POST")
-            input(type="text" placeholder="نام کاربری ")
-            br
-            input(type="text" placeholder="رمز عبور")
-            br
-            a(href="#")
-              button ورود به سیستم
+
+        if authen
+          main
+            .container.border-boxi.box-text
+              .col-md-12
+                h3 کاربران
+
+
+        else
+          main 
+            .container.border-boxi
+          
+              .col-md-12
+                img.img-responsive.logotop(src="images/Awareness_Ribbons.png")
+                form.login-box(action="/" method="POST")
+                  input(type="text" name="username" placeholder="نام کاربری ")
+                  br
+                  input(type="text" name="password" placeholder="رمز عبور")
+                  br
+                  input.login-box-sub(type='submit', value='ورود به سیستم')
+                  if message != false
+                  .alert.error
+                    span.closebtn(onclick="this.parentElement.style.display='none';") ×
+                    strong 
+                    p=error
+
+      
+
     footer
       .container-fluid.copy-right-text
         p © 2nd Iranian Health Hackathon -HACKAHEALTH 2019
