@@ -317,7 +317,7 @@ module.exports = new class AppController extends Controller {
       if (err)
         res.json({success: false, error: err})
       console.log(user)
-      this.model.Tip.find({tag: {$lte: user.tag}, sex: user.sex}, (erro, tips) => {
+      this.model.Tip.find({tag: {$lte: 4}, sex: user.sex}, (erro, tips) => {
         if (erro)
           res.json({success: false, p:2, error: erro})
   
@@ -333,24 +333,24 @@ module.exports = new class AppController extends Controller {
   }
 
   commit = (req, res) => {
-    req.checkBody('data' , '').notEmpty();
-    this.escapeAndTrim(req , 'data');
+    req.checkBody('type' , '').notEmpty();
+    req.checkBody('commit_id' , '').notEmpty();
+    req.checkBody('value' , '').notEmpty();
+
+    this.escapeAndTrim(req , 'type commit_id value');
+
     if(this.showValidationErrors(req, res))
         return;
-        
-    this.model.Contestant.insertMany(commits)
-    .then(() => res.json({success: true}))
-    .catch((err) => res.json({success : false, error: err}));
 
-    // let newCommit = new this.model.Commit();
-    // newCommit[req.body.type]=req.body.commit_id
-    // newCommit.user=req.user_id
-    // newCommit.value = req.body.value
-    // newCommit.save(err => {
-    //   if(err)
-    //     res.json({success: false, err: error})
-    //   res.json({success: true})
-    // })
+    let newCommit = new this.model.Commit();
+    newCommit[req.body.type]=req.body.commit_id
+    newCommit.user=req.user_id
+    newCommit.value = req.body.value
+    newCommit.save(err => {
+      if(err)
+        res.json({success: false, error: err})
+      res.json({success: true, newCommit  })
+    })
     
   }
   
