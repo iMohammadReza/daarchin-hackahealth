@@ -143,13 +143,13 @@ module.exports = new class AppController extends Controller {
             case 1:
               this.finishAsking(req, res, 4, fvalue, true)
               break;
-            //to: bse
+            //to: sbe
             case 2:
               fvalue+=0
               res.json({
                 data : {
                   id:2,
-                  title : 'آیا در معاینه BSE (معاینه سینه با دست) خود را مشاهده کردید؟',
+                  title : 'آیا در معاینه sbe (معاینه سینه با دست) خود را مشاهده کردید؟',
                   options : [{ text: 'بله', qid: 1 },
                              { text: 'خیر', qid: 2 }],
                   fvalue
@@ -160,7 +160,7 @@ module.exports = new class AppController extends Controller {
               break;
           }
           break;
-        //bse
+        //sbe
         case 2:
           switch (value) {
             //to: age

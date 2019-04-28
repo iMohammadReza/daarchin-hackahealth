@@ -8,6 +8,8 @@ var compression = require('compression')
 const expressValidator = require('express-validator')
 const pug = require('pug');
 const path = require('path');
+var cron = require('node-cron');
+var utils = require('./src/utils')
 
 // Connect to DB
 var dev_mongo = 'mongodb://127.0.0.1:27017/daarchin-test'
@@ -29,6 +31,26 @@ app.use(bodyParser.json({ type : 'application/json' }))
 app.use(expressValidator())
 app.use(helmet())
 app.use(compression())
+const User = require(`${config.path.model}/User`)
+
+//Reminders cron jobs
+var task = cron.schedule('3 22 * * *', () => {
+    let dd = new Date
+    User.find({}, async(err, users)=>{
+        if(users){
+            for(let usr of users){
+                if(utils.is_the_date(usr.periodDay, 1)){
+                    utils.sendSMS("Reminder for SME test", usr.phone)
+                }
+                if(utils.date_diff_indays(usr.createdAt, dd)==365){
+                    utils.sendSMS("Reminder for mamography", usr.phone)
+                    utils.sendSMS("Reminder for your partner mamography", usr.phone2)
+                }
+            }
+        }
+    })
+});
+task.start()
 
 //Routes
 const appApiRouter = require('./src/routes/appApi')
