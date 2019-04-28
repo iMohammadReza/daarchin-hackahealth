@@ -3,7 +3,7 @@ const router = express.Router()
 
 // Controllers 
 const { controller } = config.path.admin
-const AdminController = require(`${controller}/adminController`)
+const AdminController = require(`${controller}/AdminController`)
 const InputController = require(`${controller}/InputController`)
 
 router.get('/' , AdminController.get.bind(AdminController))

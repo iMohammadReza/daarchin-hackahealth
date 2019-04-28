@@ -16,9 +16,9 @@ mongoose.connect(DB, {useNewUrlParser: true, authSource: 'admin'})
 mongoose.Promise = global.Promise;
 
 // Set views path
-app.set('public', path.join(__dirname, 'src/models/public'));
+app.set('public', path.join(__dirname, 'src/view'));
 // Set public path
-app.use(express.static(path.join(__dirname, 'src/models/public')));
+app.use(express.static(path.join(__dirname, 'src/view')));
 // Set pug as view engine
 app.set('view engine', 'pug');
 
