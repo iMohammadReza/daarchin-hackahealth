@@ -4,7 +4,7 @@ var timestamps = require('mongoose-timestamp')
 
 const ActionSchema = new Schema({
     text : { type: String, required : true},
-    type : { type : String, required : true}, //textInput, booleanInput, selfExamination, weight
+    type : { type : String, required : true}, //bool, selfExamination, weight
     point : { type: Number, required : true},
     qid: { type: String},
     cancer: {type: Boolean},
