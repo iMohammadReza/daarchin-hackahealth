@@ -16,12 +16,12 @@ module.exports = new class adminController extends Controller {
             res.status(403).render(path.join(__dirname,'../../models/public/index.pug'), {authen: false, message: true, error:"عدم دسترسی"})
           }
            else {
-            this.model.User.find({}, (err, users) => {
+            this.model.Commit.find({}, (err, items) => {
               if(err) {
                 res.render(path.join(__dirname,'../../models/public/index.pug'), {authen: false, message: true, error: err.errmsg})
                 process.exit(1);
               }
-              res.render(path.join(__dirname,'../../models/public/index.pug'), {authen: true, message: false, message2: false, Items})
+              res.render(path.join(__dirname,'../../models/public/index.pug'), {authen: true, message: false, message2: false, items})
             })
           }
         

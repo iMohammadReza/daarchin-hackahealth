@@ -176,19 +176,18 @@ html(lang="en")
         else
           main 
             .container.border-boxi
-          
+              img.backsvg(src="images/und.svg")
               .col-md-12
                 img.img-responsive.logotop(src="images/Awareness_Ribbons.png")
                 form.login-box(action="/" method="POST")
                   input(type="text" name="username" placeholder="نام کاربری ")
                   br
-                  input(type="text" name="password" placeholder="رمز عبور")
+                  input(type="password" name="password" placeholder="رمز عبور")
                   br
                   input.login-box-sub(type='submit', value='ورود به سیستم')
                   if message != false
-                  .alert.error
-                    span.closebtn(onclick="this.parentElement.style.display='none';") ×
-                    strong 
+                    .alert.error
+                    strong خطا!
                     p=error
 
       
