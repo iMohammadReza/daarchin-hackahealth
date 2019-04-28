@@ -31,10 +31,11 @@ module.exports = new class AppController extends Controller {
     });
     
     let token = totp.generate();
-    request("https://api.sabanovin.com/v1/"+process.env.SMS_API+"/sms/send.json?gateway=1000081290&to="+req.body.phone+"&text="+"Hackathon verification code: " + token, function (error, response, body) {
-      console.log('error:', error); // Print the error if one occurred
-      console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-      console.log('body:', body); // Print the HTML for the Google homepage.
+    request("https://api.sabanovin.com/v1/"+process.env.SMS_API+"/sms/send.json?gateway=100069183656&to="+req.body.phone+"&text="+"Hackathon verification code: " + token, function (error, response, body) {
+      if(error)
+        res.json({success: false})
+      else
+        res.json({success: true})
     });
   }
 
@@ -83,7 +84,7 @@ module.exports = new class AppController extends Controller {
       })
     }
     else
-      res.json({success: false})
+      res.json({success: false, error: "کد فعال سازی معتبر نیست."})
   }
 
   profile = (req, res) => {
