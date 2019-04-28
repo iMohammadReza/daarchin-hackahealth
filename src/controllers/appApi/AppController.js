@@ -353,4 +353,20 @@ module.exports = new class AppController extends Controller {
     // })
     
   }
+  
+  game = (req, res) => {
+    req.checkBody('value' , '').notEmpty();
+
+    this.escapeAndTrim(req , 'value');
+
+    if(this.showValidationErrors(req, res))
+        return;
+
+    this.model.User.findOneAndUpdate({_id:req.user_id},{game: res.body.value} ,(err, user) => {
+      if (err)
+        res.json({success: false, error: err})
+      res.json({success: true, user})
+    })
+
+  }
 }
