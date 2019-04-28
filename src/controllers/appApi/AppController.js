@@ -371,7 +371,7 @@ module.exports = new class AppController extends Controller {
     if(this.showValidationErrors(req, res))
         return;
 
-    this.model.User.findOneAndUpdate({_id:req.user_id},{game: res.body.value, point: res.body.point} ,(err, user) => {
+    this.model.User.findOneAndUpdate({_id:req.user_id},{game: req.body.value, score: req.body.point} ,(err, user) => {
       if (err)
         res.json({success: false, error: err})
       res.json({success: true, user})
