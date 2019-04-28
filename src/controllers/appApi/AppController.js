@@ -113,9 +113,9 @@ module.exports = new class AppController extends Controller {
       res.json({
         data : {
           id: 1,
-          title : 'Do you have cancer?',
-          options : [{ text: 'First Option', qid: 1 },
-                     { text: 'Second Option', qid: 2 }],
+          title : 'آیا به تشخیص پزشک مبتلا به سرطان سینه هستید؟',
+          options : [{ text: 'بله', qid: 1 },
+                     { text: 'خیر', qid: 2 }],
           fvalue : 0
         },
         success : true})
@@ -136,28 +136,22 @@ module.exports = new class AppController extends Controller {
       value= parseInt(value)
       fvalue= parseInt(fvalue)
       switch (id) {
+        //cancer?
         case 1:
           switch (value) {
+            //finish: 4
             case 1:
-              fvalue+=10
-              res.json({
-                data : {
-                  id: 2,
-                  title : 'Q3',
-                  options : [{ text: 'First Option', qid: 1 },
-                             { text: 'Second Option', qid: 2 }],
-                  fvalue
-                },
-                success : true})
+              this.finishAsking(req, res, 4, fvalue, true)
               break;
+            //to: bse
             case 2:
-              fvalue-=20
+              fvalue+=0
               res.json({
                 data : {
-                  id:3,
-                  title : 'Q2?',
-                  options : [{ text: 'First Option', qid: 1 },
-                             { text: 'Second Option', qid: 2 }],
+                  id:2,
+                  title : 'آیا در معاینه BSE (معاینه سینه با دست) خود را مشاهده کردید؟',
+                  options : [{ text: 'بله', qid: 1 },
+                             { text: 'خیر', qid: 2 }],
                   fvalue
                 },
                 success : true})
@@ -166,27 +160,156 @@ module.exports = new class AppController extends Controller {
               break;
           }
           break;
+        //bse
         case 2:
-          
+          switch (value) {
+            //to: age
+            //finish: 3 - other survey
+            case 1:
+              fvalue+=30
+              res.json({
+                data : {
+                  id:3,
+                  title : 'سن شما چقدر است؟',
+                  options : [{ text: 'بالای ۴۰', qid: 1 },
+                            { text: 'پایین ۴', qid: 2 }],
+                  fvalue
+                },
+                success : true})
+              break;
+            //to: age
+            case 2:
+              fvalue+=0
+              res.json({
+                data : {
+                  id:3,
+                  title : 'سن شما چقدر است؟',
+                  options : [{ text: 'بالای ۴۰', qid: 1 },
+                            { text: 'پایین ۴۰', qid: 2 }],
+                  fvalue
+                },
+                success : true})
+              break;
+          }
           break;
+        //age
         case 3:
-          
+          switch (value) {
+            //to: mamography
+            case 1:
+              fvalue+=0
+              res.json({
+                data : {
+                  id:6,
+                  title : 'در یک سال اخیر ماموگرافی انجام داده اید؟',
+                  options : [{ text: 'خیر', qid: 1 },
+                            { text: 'بله و طبیعی بود', qid: 2 },
+                            { text: 'بله و طبیعی نبود', qid: 3 }],
+                  fvalue
+                },
+                success : true})
+              break;
+            //to: which one 1
+            case 2:
+              fvalue+=0
+              res.json({
+                data : {
+                  id:4,
+                  title : ' در کدامیک از دسته های زیر قرار می‌گیرید؟',
+                  options : [{ text: ' سابقه خانوادگی سرطان ( مخصوصا تخمدان یا پستان )', qid: 1 },
+                            { text: 'سابقه فردی سرطان پستان یا تخمدان', qid: 2 },
+                            { text: 'سابقه بیوپسی پستان', qid: 3 },
+                            { text: 'سابقه رادیوتراپی قفسه سینه', qid: 4 },
+                            { text: 'هیچ کدام', qid: 5 }],
+                  fvalue
+                },
+                success : true})
+              break;
+          }
           break;
+        //which one 1
         case 4:
-          
+          switch (value) {
+            //finish: 1
+            case 5:
+              this.finishAsking(req, res, 1, fvalue, false)
+              break;
+            //to: which one 2
+            default:
+              fvalue+=0
+              res.json({
+                data : {
+                  id:5,
+                  title : ' در کدامیک از دسته های زیر قرار می‌گیرید؟ شایع‌ترین مورد را انتخاب کنید.',
+                  options : [{ text: 'در سن کمتر از 11 سال اولین قاعدگی را داشتم', qid: 1 },
+                            { text: 'در سن بالای 54 سالگی یایسگی دارم', qid: 2 },
+                            { text: 'نمایه توده بدنی ( BMI )  بالای 30 دارم', qid: 3 },
+                            { text: 'مصرف روزانه دخانیات یا مشروبات الکلی دارم', qid: 4 },
+                            { text: 'اولین بارداری ام در سن بالای 30 بوده است', qid: 5 },
+                            { text: 'قرص های ضد بارداری مصرف کرده ام', qid: 6 },
+                            { text: 'غذای چرب زیاد مصرف میکنم', qid: 7 },
+                            { text: 'تحرک بدنی کمتر از 150 دقیقه در هفته دارم', qid: 8 },
+                            { text: 'هیج کدام', qid: 9 }],
+                  fvalue
+                },
+                success : true})
+              break;
+          }
           break;
+        //which one 2
         case 5:
-          
+          switch (value) {
+            //finish: 1
+            case 9:
+              this.finishAsking(req, res, 1, fvalue, false)
+              break;
+            //finish: 2
+            default:
+              this.finishAsking(req, res, 2, fvalue, false)
+          } 
           break;
+        //mamography
         case 6:
-          
+          switch (value) {
+            //fninish: 2
+            case 1:
+              this.finishAsking(req, res, 2, fvalue, false)
+              break;
+            //fninish: 2
+            case 2:
+              this.finishAsking(req, res, 2, fvalue, false)
+              break;
+            //fninish: 3
+            case 3:
+              this.finishAsking(req, res, 3, fvalue, false)
+              break;
+          }
           break;
-    
         default:
           res.json({success: false, error: "out of range"})
           break;
       }
 
+  }
+
+  finishAsking = (req, res, tag, fvalue, cancer)=> {
+    this.model.User.findOneAndUpdate({_id:req.user_id},{tag:fvalue>29?3:tag, cancer} ,(err, user) => {
+      if (err)
+        res.json({success: false, error: err})
+      console.log(user)
+      this.model.Tip.find({tag: {$lte: user.tag}, sex: user.sex}, (erro, tips) => {
+        if (erro)
+          res.json({success: false, p:2, error: erro})
+  
+        this.model.Action.find({tag: {$lte: user.tag}, sex: user.sex}, (error, actions) => {
+          if (error)
+            res.json({success: false, p:3, error: error})
+          //res+="how do you fill"
+          res.json({success: true, finished:true, user: {name: user.name, tag: fvalue>29?3:tag, sex: user.sex, cancer}, tips, actions})
+        })
+
+      })
+    })
   }
 
   home = async (req, res) => {
