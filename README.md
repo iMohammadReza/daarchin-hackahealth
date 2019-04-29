@@ -38,7 +38,7 @@ Hackahealth 2019 Backend written in node.js and express.js
 
 ## Cancer classification algorithm
 هر نود دایره یک سوال است و هر برگ (مستطیل) یک مرحله پایانی هست. به علت هدایت نشدن مستقیم سوال‌ها به بعضی ها یال ها وزنی تعلق داده شده که تا آخرین طبقه ممکن پاس داده میشوند و برای مشخص کردن بهتر مورد استفاده قرار میگیرد.
-# <a href=''><img src='https://8pic.ir/uploads/desk.png'></a>
+# <a href=''><img src='http://s8.picofile.com/file/8358876068/Untitled_1_Recovered.png'></a>
 ##
 
 ## Setup
