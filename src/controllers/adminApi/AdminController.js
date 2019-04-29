@@ -12,7 +12,7 @@ module.exports = new class AdminController extends Controller {
           if(req.body.username==null || req.body.password==null || req.body.username=="" || req.body.password==""){
             res.status(422).render(path.join(__dirname,'../../view/index.pug'), {authen: false, message: true, error:"نام کاربری و رمز عبور نمیتواند خالی باشند"})
           } 
-          else if(!(req.body.username=="hackahealth" && req.body.password=="2019hh")){
+          else if(!(req.body.username=="hh" && req.body.password=="2019")){
             res.status(403).render(path.join(__dirname,'../../view/index.pug'), {authen: false, message: true, error:"عدم دسترسی"})
           }
            else {
