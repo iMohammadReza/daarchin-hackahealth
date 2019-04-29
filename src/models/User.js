@@ -7,7 +7,7 @@ const UserSchema = new Schema({
     phone : { type: String, required : true},
     phone2 : { type: String, default : ""},
     score : { type: Number, default: 20},
-    game : { type: Object, default: []},
+    game : { type: String, default: "0000000"},
     tag : { type: Number, default: -1},
     cancer : {type: Boolean, default: false},
     periodDay : { type: Number, default: -1},
