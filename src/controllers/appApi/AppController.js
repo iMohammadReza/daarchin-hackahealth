@@ -1,6 +1,7 @@
 const Controller = require('../Controller')
 const OTPAuth = require('otpauth');
 const jwt = require('jsonwebtoken')
+const Transform = require('../../transforms/appApi/Transform')
 require('es6-promise').polyfill();
 var request = require('request');
 
@@ -305,7 +306,11 @@ module.exports = new class AppController extends Controller {
           if (error)
             res.json({success: false, p:3, error: error})
           //res+="how do you fill"
-          res.json({success: true, finished:true, user: {name: user.name, tag: fvalue>29?3:tag, sex: user.sex, cancer}, tips, actions})
+          res.json({success: true,
+            user,
+            tips: new Transform().randomize(tips, 1),
+            actions: new Transform().randomize(actions, 3)
+          })
         })
 
       })
@@ -317,15 +322,19 @@ module.exports = new class AppController extends Controller {
       if (err)
         res.json({success: false, error: err})
       console.log(user)
-      this.model.Tip.find({tag: {$lte: user.tag}, sex: user.sex}, (erro, tips) => {
+      this.model.Tip.find({tag: {$lte: user.tag}}, (erro, tips) => {
         if (erro)
-          res.json({success: false, p:2, error: erro})
+          res.json({success: false, error: erro})
   
-        this.model.Action.find({tag: {$lte: user.tag}, sex: user.sex}, (error, actions) => {
+        this.model.Action.find({tag: {$lte: user.tag}}, (error, actions) => {
           if (error)
-            res.json({success: false, p:3, error: error})
+            res.json({success: false, error: error})
           //res+="how do you fill"
-          res.json({success: true, user: {name: user.name, tag: user.tag, sex: user.sex, cancer: user.cancer}, tips, actions})
+          res.json({success: true,
+            user,
+            tips: new Transform().randomize(tips, 1),
+            actions: new Transform().randomize(actions, 3)
+          })
         })
 
       })
@@ -333,24 +342,24 @@ module.exports = new class AppController extends Controller {
   }
 
   commit = (req, res) => {
-    req.checkBody('data' , '').notEmpty();
-    this.escapeAndTrim(req , 'data');
+    req.checkBody('type' , '').notEmpty();
+    req.checkBody('commit_id' , '').notEmpty();
+    req.checkBody('value' , '').notEmpty();
+
+    this.escapeAndTrim(req , 'type commit_id value');
+
     if(this.showValidationErrors(req, res))
         return;
-        
-    this.model.Contestant.insertMany(commits)
-    .then(() => res.json({success: true}))
-    .catch((err) => res.json({success : false, error: err}));
 
-    // let newCommit = new this.model.Commit();
-    // newCommit[req.body.type]=req.body.commit_id
-    // newCommit.user=req.user_id
-    // newCommit.value = req.body.value
-    // newCommit.save(err => {
-    //   if(err)
-    //     res.json({success: false, err: error})
-    //   res.json({success: true})
-    // })
+    let newCommit = new this.model.Commit();
+    newCommit[req.body.type]=req.body.commit_id
+    newCommit.user=req.user_id
+    newCommit.value = req.body.value
+    newCommit.save(err => {
+      if(err)
+        res.json({success: false, error: err})
+      res.json({success: true, newCommit  })
+    })
     
   }
   
@@ -362,7 +371,7 @@ module.exports = new class AppController extends Controller {
     if(this.showValidationErrors(req, res))
         return;
 
-    this.model.User.findOneAndUpdate({_id:req.user_id},{game: res.body.value, point: res.body.point} ,(err, user) => {
+    this.model.User.findOneAndUpdate({_id:req.user_id},{game: req.body.value, score: req.body.point} ,(err, user) => {
       if (err)
         res.json({success: false, error: err})
       res.json({success: true, user})
