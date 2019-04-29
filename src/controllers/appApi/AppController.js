@@ -74,7 +74,6 @@ module.exports = new class AppController extends Controller {
             if(err)
               return res.json({error: err, success: false});
           });
-          console.log(newUser)
           user_id = newUser._id
         } else {
           user_id = user._id
@@ -104,8 +103,6 @@ module.exports = new class AppController extends Controller {
 
     this.model.User.findOneAndUpdate({_id: req.user_id}, {name, phone2, sex, age, periodDay} , async (err , user) => {
       if(err) throw err;
-
-      console.log(user, req.user_id)
 
       if(user == null) {
         return res.json({data: "user not found!", success: false});
@@ -297,7 +294,6 @@ module.exports = new class AppController extends Controller {
     this.model.User.findOneAndUpdate({_id:req.user_id},{tag:fvalue>29?3:tag, cancer} ,(err, user) => {
       if (err)
         res.json({success: false, error: err})
-      console.log(user)
       this.model.Tip.find({tag: {$lte: user.tag}, sex: user.sex}, (erro, tips) => {
         if (erro)
           res.json({success: false, p:2, error: erro})
@@ -308,6 +304,7 @@ module.exports = new class AppController extends Controller {
           //res+="how do you fill"
           res.json({success: true,
             user,
+            drphone: "09136310951",
             tips: new Transform().randomize(tips, 1),
             actions: new Transform().randomize(actions, 3)
           })
@@ -321,7 +318,6 @@ module.exports = new class AppController extends Controller {
     this.model.User.findById(req.user_id, (err, user) => {
       if (err)
         res.json({success: false, error: err})
-      console.log(user)
       this.model.Tip.find({tag: {$lte: user.tag}}, (erro, tips) => {
         if (erro)
           res.json({success: false, error: erro})
@@ -332,6 +328,7 @@ module.exports = new class AppController extends Controller {
           //res+="how do you fill"
           res.json({success: true,
             user,
+            drphone: "09136310951",
             tips: new Transform().randomize(tips, 1),
             actions: new Transform().randomize(actions, 3)
           })
@@ -370,7 +367,7 @@ module.exports = new class AppController extends Controller {
 
     if(this.showValidationErrors(req, res))
         return;
-
+    console.log(req.body)
     this.model.User.findOneAndUpdate({_id:req.user_id},{game: req.body.value, score: req.body.point} ,(err, user) => {
       if (err)
         res.json({success: false, error: err})
