@@ -20,35 +20,72 @@ html(lang="en")
           .container-fluid
             ul.nav.navbar-nav
               li.active
-                a(href="#") HACKAHEALTH
+                a(href="#") Pink Fish
 
 
-        if authen
-          main
-            .container.border-boxi.box-text
-              .col-md-12
-                h3 کاربران
+  if authen
+    main
+        .container.border-boxi.box-text
+          .col-md-12          
+            h3 کاربران
+            .center
+              .row
+                    form.search-form(action="/" method="POST")
+                      input.searchbox(type="text" name="search" placeholder="جستجو با شماره تماس")
+                      input.hide(type='text', name='type', value="search")
+                      input.send-inp(type='submit' , value='جستجو کنید')
+                      if message != false
+                        .alert.error
+                        strong خطا!
+                        p=error
+
+              .row      
+                    table.table.table-striped
+                      thead
+                        tr.center
+                          th نام کاربر
+                          th شماره تماس
+                          th مقدار ورودی
+                          th سوالات
+                          th نکات آموزشی
+                          th تاریخ ورود اطلاعات
+                      tbody
+                        each commit in commits
+                          tr
+                            td=commit.user.name
+                            td=commit.user.phone
+                            td=commit.value     
+                            if commit.action     
+                              td=commit.action.text
+                            else
+                              td='-'
+                            if commit.tip
+                              td=commit.tip.context
+                            else
+                              td='-'
+                            td=commit.updatedAt
 
 
-        else
-          main 
-            .container.border-boxi
-              img.backsvg(src="images/und.svg")
-              .col-md-12
-                img.img-responsive.logotop(src="images/Awareness_Ribbons.png")
-                form.login-box(action="/" method="POST")
-                  input(type="text" name="username" placeholder="نام کاربری ")
-                  br
-                  input(type="password" name="password" placeholder="رمز عبور")
-                  br
-                  input.login-box-sub(type='submit', value='ورود به سیستم')
-                  if message != false
-                    .alert.error
-                    strong خطا!
-                    p=error
+  else
+    main 
+      .container.border-boxi
+        img.backsvg(src="images/und.svg")
+        .col-md-12
+          img.img-responsive.logotop(src="images/Awareness_Ribbons.png")
+          form.login-box(action="/" method="POST")
+            input(type="text" name="username" placeholder="نام کاربری ")
+            br
+            input(type="password" name="password" placeholder="رمز عبور")
+            input.hide(type='text', name='type', value="login")
+            br
+            input.login-box-sub(type='submit', value='ورود به سیستم')
+            if message != false
+              .alert.error
+              strong خطا!
+              p=error
 
       
 
-    footer
-      .container-fluid.copy-right-text
-        p © 2nd Iranian Health Hackathon -HACKAHEALTH 2019
+  footer
+    .container-fluid.copy-right-text
+      p © 2nd Iranian Health Hackathon -HACKAHEALTH 2019
