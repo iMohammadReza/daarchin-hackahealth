@@ -26,7 +26,7 @@ body {
   /* background-image: url(images/photo_2019-03-31_00-43-23.jpg);
   background-size: cover;
   background-repeat: no-repeat; */
-  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+  background-image: linear-gradient(to top, #a6c1ee 0%, #fbc2eb 100%);
 }
 .container{
   direction: rtl;
@@ -141,12 +141,22 @@ footer{
 .search-form{
   text-align: center;
 }
-.search-form input{
-  background: rgb(239, 239, 239);
+.searchbox{
+  background: rgb(239, 239, 239) !important;
   border: none;
   padding: 3px 15px;
 }
-.search-form button{
+.send-inp{
   border: none;
-  background: #e1d6d6;
+  background: #e1d6d6 !important;
+}
+.hide{
+  display: none;
+}
+.center{
+  text-align: center;
+}
+.table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th {
+  border-top: 0;
+  text-align: center;
 }
